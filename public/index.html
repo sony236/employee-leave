@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111b4b">
+  <title>LeaveFlow — Employee Leave Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+  <main id="authView" class="auth-layout">
+    <section class="auth-art">
+      <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+      <div class="brand brand-light"><span class="brand-mark">L</span><span>leaveflow<span class="brand-dot">.</span></span></div>
+      <div class="art-copy">
+        <span class="eyebrow light-eyebrow">PEOPLE FIRST. ALWAYS.</span>
+        <h1>Time away.<br><em>Well managed.</em></h1>
+        <p>A calmer, clearer way to manage time off — from the first request to the final approval.</p>
+        <div class="art-pills"><span>✦ Simple requests</span><span>✦ Clear decisions</span><span>✦ Better balance</span></div>
+      </div>
+      <div class="art-footer"><span>YOUR WORK-LIFE, IN BETTER BALANCE</span><span>01 / 03</span></div>
+    </section>
+    <section class="auth-panel">
+      <div class="auth-top"><span class="mobile-brand">leaveflow<span>.</span></span><span class="secure-label">✦ &nbsp; SECURE EMPLOYEE PORTAL</span></div>
+      <div class="auth-card">
+        <div class="auth-heading"><span class="eyebrow">WELCOME TO LEAVEFLOW</span><h2 id="authTitle">Sign in to your<br><em>workspace.</em></h2><p id="authSubtitle">Your work-life balance starts here.</p></div>
+        <div class="auth-tabs"><button class="tab active" id="loginTab">Sign in</button><button class="tab" id="signupTab">Create account</button></div>
+        <form id="loginForm" class="auth-form">
+          <label>Email address<input type="email" name="email" placeholder="you@company.com" required></label>
+          <label>Password<input type="password" name="password" placeholder="Enter your password" required></label>
+          <button class="primary-btn full-btn">Sign in <span>↗</span></button>
+        </form>
+        <form id="signupForm" class="auth-form hidden">
+          <div class="form-grid"><label>Full name<input name="name" placeholder="Your name" required></label><label>Email address<input type="email" name="email" placeholder="you@company.com" required></label><label>Department<input name="department" placeholder="e.g. Engineering"></label><label>Designation<input name="designation" placeholder="e.g. Associate"></label></div>
+          <label>Password<input type="password" name="password" placeholder="At least 6 characters" minlength="6" required></label>
+          <button class="primary-btn full-btn">Create account <span>↗</span></button>
+          <p class="form-note">New accounts require administrator approval before sign in.</p>
+        </form>
+        <div class="auth-bottom"><span>© 2026 LeaveFlow</span><span>Made for people <b>♥</b></span></div>
+      </div>
+    </section>
+  </main>
+
+  <main id="appView" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">L</span><span>leaveflow<span class="brand-dot">.</span></span></div>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav id="sideNav">
+        <button class="nav-link active" data-page="overview"><span>◫</span> Overview</button>
+        <button class="nav-link" data-page="apply"><span>＋</span> Apply for leave</button>
+        <button class="nav-link" data-page="history"><span>▤</span> My leave history</button>
+        <button class="nav-link manager-only hidden" data-page="requests"><span>◷</span> Leave approvals <i id="pendingDot"></i></button>
+        <button class="nav-link admin-only hidden" data-page="people"><span>♙</span> People & access</button>
+      </nav>
+      <div class="sidebar-bottom"><div class="help-card"><span class="help-icon">✳</span><b>Need a little help?</b><p>Your HR team is here for you.</p></div><button class="nav-link logout" id="logoutBtn"><span>↪</span> Sign out</button></div>
+    </aside>
+    <section class="main-area">
+      <header class="topbar"><div><span class="breadcrumb">WORKSPACE /</span> <b id="pageCrumb">Overview</b></div><div class="top-user"><div class="top-avatar" id="topAvatar">U</div><div><b id="topName">User</b><small id="topRole">Employee</small></div><span class="chevron">⌄</span></div></header>
+      <div class="page-wrap">
+        <section id="overviewPage" class="page">
+          <div class="welcome-row"><div><span class="eyebrow">YOUR LEAVE, AT A GLANCE</span><h1>Good to see you, <em id="welcomeName">there</em>.</h1><p>Here’s what’s happening with your time off.</p></div><button class="primary-btn" id="quickApply">＋ New leave request</button></div>
+          <div class="stat-grid">
+            <article class="stat-card stat-blue"><div class="stat-top"><span>Total requests</span><span class="stat-icon">▤</span></div><strong id="totalStat">0</strong><small>All time submissions</small></article>
+            <article class="stat-card stat-pink"><div class="stat-top"><span>Awaiting review</span><span class="stat-icon">◷</span></div><strong id="pendingStat">0</strong><small>Pending decisions</small></article>
+            <article class="stat-card stat-lilac"><div class="stat-top"><span>Approved</span><span class="stat-icon">✓</span></div><strong id="approvedStat">0</strong><small>Ready for time away</small></article>
+            <article class="stat-card stat-soft"><div class="stat-top"><span>Declined</span><span class="stat-icon">↗</span></div><strong id="rejectedStat">0</strong><small>Requests not approved</small></article>
+          </div>
+          <div class="content-card"><div class="section-head"><div><span class="eyebrow">A QUICK LOOK</span><h2>Recent activity</h2></div><button class="text-btn" data-goto="history">View all requests ↗</button></div><div id="recentTable"></div></div>
+          <div class="quote-strip"><span class="quote-star">✳</span><div><b>Rest is part of the work.</b><p>Taking time to recharge helps you bring your best self to what matters.</p></div><span class="quote-mark">“</span></div>
+        </section>
+
+        <section id="applyPage" class="page hidden">
+          <div class="page-heading"><span class="eyebrow">TAKE THE TIME YOU NEED</span><h1>Request <em>time off.</em></h1><p>Fill in the details below. Your manager will be notified of your request.</p></div>
+          <div class="content-card form-card"><form id="leaveForm">
+            <div class="form-grid"><label>Leave type<select name="leave_type_id" id="leaveType" required><option value="">Choose a leave type</option></select></label><label>Reason for leave<input name="reason" placeholder="A short reason for your request" required></label><label>From date<input type="date" name="from_date" required></label><label>To date<input type="date" name="to_date" required></label></div>
+            <div class="form-actions"><span>✦ &nbsp; You can review your request in leave history.</span><button class="primary-btn">Submit request ↗</button></div>
+          </form></div>
+        </section>
+
+        <section id="historyPage" class="page hidden">
+          <div class="page-heading"><span class="eyebrow">YOUR TIME, YOUR RECORD</span><h1>Leave <em>history.</em></h1><p>Every request, all in one place.</p></div>
+          <div class="content-card"><div class="section-head"><h2>All requests</h2><span class="subtle" id="historyCount">0 records</span></div><div id="historyTable"></div></div>
+        </section>
+
+        <section id="requestsPage" class="page hidden">
+          <div class="page-heading"><span class="eyebrow">MANAGER WORKSPACE</span><h1>Leave <em>approvals.</em></h1><p>Review requests and help your team plan their time away.</p></div>
+          <div class="content-card"><div class="section-head"><h2>Team requests</h2><span class="subtle" id="teamCount">0 requests</span></div><div id="requestsTable"></div></div>
+        </section>
+
+        <section id="peoplePage" class="page hidden">
+          <div class="page-heading"><span class="eyebrow">ADMINISTRATION</span><h1>People & <em>access.</em></h1><p>Approve new accounts and manage workspace roles.</p></div>
+          <div class="content-card"><div class="section-head"><h2>Employee directory</h2><span class="subtle" id="peopleCount">0 people</span></div><div id="peopleTable"></div></div>
+        </section>
+        <footer class="page-footer"><span>LEAVEFLOW © 2026</span><span>DESIGNED FOR A BETTER WORK-LIFE</span></footer>
+      </div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
